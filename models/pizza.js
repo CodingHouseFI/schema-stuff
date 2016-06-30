@@ -10,6 +10,24 @@ let pizzaSchema = new mongoose.Schema({
   chef: { type: mongoose.Schema.Types.ObjectId, ref: 'Chef' }
 });
 
-let Pizza = mongoose.model('Pizza', pizzaSchema);
+//  schema.statics  -->  Class (model) method
+// Pizza.addChef(...)
+
+let Pizza;
+
+pizzaSchema.statics.addChef = function(pizzaId, chefId, cb) {
+  // this is the model
+  this.findById(pizzaId, function(err, pizza) {
+    if(err || !pizza) return cb(err || {error: 'Pizza not found'});
+    pizza.setChef(chefId, cb);
+  });
+};
+
+pizzaSchema.methods.setChef = function(chefId, cb) {
+  this.chef = chefId;
+  this.save(cb);
+};
+
+Pizza = mongoose.model('Pizza', pizzaSchema);
 
 module.exports = Pizza;

@@ -53,16 +53,77 @@ router.route('/:id')
 //   PUT  /api/pizzas/294872938479283/addChef/577420498a444ff041815e89
 
 router.put('/:pizzaId/addChef/:chefId', (req, res) => {
-  Pizza.findById(req.params.pizzaId, (err, pizza) => {
-    if(err || !pizza) return res.status(400).send(err || {error: 'Pizza not found'});
-
-    // '577420498a444ff041815e89'
-    pizza.chef = req.params.chefId;
-    pizza.save((err, savedPizza) => {
-      res.status(err ? 400 : 200).send(err || savedPizza);
-    });
+  Pizza.addChef(req.params.pizzaId, req.params.chefId, (err, savedPizza) => {
+    res.status(err ? 400 : 200).send(err || savedPizza);
   });
 });
 
 module.exports = router;
+
+
+
+// {
+//   capacity: 4,
+//   tenants: [1, 2, 3, 4],
+//   rent: 500
+// }
+
+
+
+
+
+
+// property.addTenant(tenantId, (err, savedProperty) => {
+  
+// })
+
+// property.removeTenant(tenantId, (err, savedProperty) => {
+
+// })
+
+
+// let totalRent = property.totalRent();
+
+
+// ///////////
+
+
+// Property.totalRent((err, totalRent) => {
+
+// })
+
+// // find all properties
+// // iterate over properties
+// // calculate total rent
+
+
+// propertySchema.statics.totalRent = function(cb) {
+//   this.find({}, (err, properties) => {
+//     if(err) return cb(err);
+
+//     let totalRent = properties.reduce((sum, prop) => sum + prop.totalRent(), 0);
+
+//     cb(null, totalRent);
+//   });
+// };
+
+// propertySchema.methods.totalRent = function() {
+
+//   let numTenants = this.tenants.length;
+//   let totalRent = numTenants * this.rent;
+
+//   return totalRent;
+// };
+
+
+
+
+
+
+
+
+
+
+
+
 

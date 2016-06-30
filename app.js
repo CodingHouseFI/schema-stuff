@@ -39,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', require('./routes/api'));
 
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
   res.render('index', {title: 'Express Template'});
 });
 

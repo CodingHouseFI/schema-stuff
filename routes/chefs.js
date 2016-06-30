@@ -36,4 +36,20 @@ router.route('/:id')
     });
   })
 
+router.put('/:id/addYear', (req, res) => {
+  Chef.findById(req.params.id, (err, chef) => {
+    if(err || !chef) {
+      return res.status(400).send(err || {error: 'Chef not found.'});
+    }
+
+    chef.addYear((err, savedChef) => {
+      res.status(err ? 400 : 200).send(err || savedChef);      
+    });
+    
+  });
+})
+
 module.exports = router;
+
+
+
