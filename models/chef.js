@@ -4,9 +4,7 @@ const mongoose = require('mongoose');
 
 let chefSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  yearsOfExperience: Number,
-  pizzas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Pizzas' }]
-
+  yearsOfExperience: Number
 });
 
 let Chef = mongoose.model('Chef', chefSchema);
